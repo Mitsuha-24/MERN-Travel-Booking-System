@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel & Tourism</title>
+    <style>
+        input{
+            background: transparent;
+        }
+        textarea{
+            background: transparent;
+        }
+        select{
+            background: transparent;
+        }
+        button{
+            background: transparent;
+            height: 30px;
+            border: 3px solid black;
+            border-radius: 5px;
+            margin-left: 50px;
+        }
+        button:hover{
+            cursor: pointer;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body background="/img/background.jpg">
+    <h1><em>Book your Hotels here</em></h1>
+     <fieldset><legend ><b>Hotel Booking Form</b></legend> <br><br>
+    
+    <form action="/hotelbooking" method="post">
+    <h2>Booking for: <%= hotelName || 'Selected Hotel' %></h2>
+    
+    <% if (availableRooms !== 'N/A') { %>
+        <p style="font-size: 1.2em; color: darkgreen;">
+            **Rooms Available:** <%= availableRooms %>
+        </p>
+    <% } else { %>
+        <p style="font-size: 1.2em; color: orange;">
+            Room availability check failed or inventory not found.
+        </p>
+    <% } %>
+    <input type="hidden" id="hotel_name" name="hotel_name" value="<%= hotelName %>">
+        <!-- Guest Information -->
+        <label for="guest_name">Guest Name:</label>
+        <input type="text" id="guest_name" name="guest_name" required> <br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" required><br><br>
+
+        <!-- Reservation Details -->
+        <label for="check_in_date">Check-in Date:</label>
+        <input type="date" id="check_in_date" name="check_in_date" required><br><br>
+
+        <label for="check_out_date">Check-out Date:</label>
+        <input type="date" id="check_out_date" name="check_out_date" required><br><br>
+
+        <label for="room_type">Room Type:</label>
+        <select id="room_type" name="room_type" required>
+            <option value="single">Single Room</option>
+            <option value="double">Double Room</option>
+            <option value="suite">Suite</option>
+        </select><br><br>
+
+        <!-- Additional Requests -->
+        <label for="special_requests">Special Requests:</label>
+        <textarea id="special_requests" name="special_requests" rows="4"></textarea> <br><br>
+
+        <!-- Payment Information -->
+        <label for="credit_card">Credit/Debit Card Number:</label>
+        <input type="number" id="credit_card" name="credit_card" required><br><br>
+
+        <label for="expiry_date">Expiry Date:</label>
+        <input type="date" id="expiry_date" name="expiry_date" placeholder="MM/YY" required><br><br><br>
+
+        <!-- Submit Button -->
+        <button type="submit">Submit Booking</button><br><br>
+    
+    </form>
+</fieldset>
+</body>
+</html>

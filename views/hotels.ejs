@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mangalore Top Hotels</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .hotel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 20px 0;
+        }
+        .hotel-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        .hotel-card:hover {
+            transform: translateY(-5px);
+        }
+        .hotel-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .hotel-info {
+            padding: 15px;
+        }
+        .hotel-info h3 {
+            margin-top: 0;
+            color: #007bff;
+            font-size: 1.5em;
+        }
+        .hotel-info p {
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Mangalore's Top Rated Hotels 🏨</h1>
+        <p>Choose your luxury stay and book instantly.</p>
+    </div>
+<div class="container">
+    <div class="hotel-grid">
+            
+        <% 
+        // Define a list of hotels that should be displayed
+        // This is a placeholder structure, you could define price/img here too
+        const hotelList = [
+            { name: 'The Grand Waterfront Resort', img: '/img/hotel2.jpeg', location: 'Near Tannirbhavi Beach, Mangalore', price: '3000 per night', desc: 'A premier 5-star resort offering breathtaking ocean views and private beach access.' },
+            { name: 'Ocean View Suites', img: '/img/hotel1.jpeg', location: 'Kadri Hills, Mangalore', price: '3500 per night', desc: 'Stylish, modern suites with large balconies overlooking the city and the Arabian Sea.' },
+            { name: 'The City Center Grand Suites', img: '/img/hotel3.jpeg', location: 'Balmatta Road, Central Mangalore', price: '4000 per night', desc: 'Ideal for business and leisure, situated close to major shopping and dining areas.' },
+            { name: 'Skyline Luxury Towers', img: '/img/hotel4.jpeg', location: 'Near New Mangalore Port', price: '6000 per night', desc: 'Contemporary rooms with stunning skyline views and world-class fine dining options.' },
+            { name: 'Royal Heritage Palace', img: '/img/hotel5.jpeg', location: 'Near Bejai, Mangalore', price: '7000 per night', desc: 'Experience luxury in this beautifully restored heritage property with modern amenities.' },
+        ];
+
+        // Loop through the static list to display the card
+        hotelList.forEach(hotel => { 
+            // Look up the room count from the inventory data passed from the server
+            const inventoryItem = hotelInventory.find(h => h.hotel_name === hotel.name);
+            const roomsAvailable = inventoryItem ? inventoryItem.availableRooms : 'N/A';
+        %>
+
+        <div class="hotel-card">
+            <img src="<%= hotel.img %>" alt="<%= hotel.name %>">
+            <div class="hotel-info">
+                <h3><%= hotel.name %></h3>
+                <p><strong>Location:</strong> <%= hotel.location %></p>
+                <p><strong>Rooms Available:</strong> <%= roomsAvailable %></p> 
+                <p><strong>Price :</strong><%= hotel.price %></p>
+                <p><%= hotel.desc %></p>
+                <a href="/hotelbooking?hotelName=<%= encodeURIComponent(hotel.name) %>" class="btn">Book Now</a>
+            </div>
+        </div>
+
+        <% 
+        }); 
+        // 🌟 END LOOP HERE 🌟
+        %>
+
+    </div>
+</div>
+</body>
+</html>
