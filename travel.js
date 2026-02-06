@@ -3,8 +3,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import mongoose  from 'mongoose';
 import { config } from 'dotenv'; 
-import connectToDB from './config/db.js'; // Your DB connection function
-import hotelrouter from './routs/hotelbooking.routs.js'; // Your router
+import connectToDB from './config/db.js'; //  DB connection function
+import hotelrouter from './routs/hotelbooking.routs.js'; //  router
 import HotelInventoryModel from './models/Hotel_name.js';
 import seedHotelInventory from './scripts/seed_inventory.js'; 
 
@@ -24,12 +24,11 @@ travel.set('view engine' , 'ejs');
 travel.set ('views' , './views');
 
 const staticPath = path.join(__dirname, 'public');
-// ✨ DEBUGGING LINE: Print the exact path Express is using
+// DEBUGGING LINE: Print the exact path Express is using
 console.log('Serving static files from:', staticPath); 
 travel.use(hotelrouter); // Middleware for POST /hotelbooking
 // The robust static file serving should now work correctly
 travel.use(express.static(staticPath));
-
 
 // GET /travel/homepage (renders the homepage)
 travel.get('/' , (req , res) =>{
@@ -51,7 +50,6 @@ travel.get('/hotelbooking' , async (req , res)=>{
     try {
         // Find the hotel inventory record
         const hotelInventory = await HotelInventoryModel.findOne({ hotel_name: hotelName });
-
         if (hotelInventory) {
             availableRooms = hotelInventory.availableRooms;
         }
@@ -67,7 +65,7 @@ travel.get('/hotelbooking' , async (req , res)=>{
     }); 
 });
 // travel.js (UPDATED Route - Make sure to implement this)
-travel.get('/hotels', async (req, res) => { // ⬅️ Must be ASYNC
+travel.get('/hotels', async (req, res) => { // Must be ASYNC
     let hotelData = [];
     try {
         // Fetch ALL hotel inventory documents

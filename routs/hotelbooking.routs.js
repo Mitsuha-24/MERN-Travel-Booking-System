@@ -1,7 +1,5 @@
 import express from 'express';
-// Renaming for clarity: CustomerBookingModel for booking records
 import CustomerBookingModel from '../models/hotel.models.js'; 
-// Renaming for clarity: HotelInventoryModel for room counts
 import HotelInventoryModel from '../models/Hotel_name.js'; 
 import mongoose from 'mongoose'; // Can be kept, but Mongoose functions are not needed for this simplified route
 
@@ -24,8 +22,6 @@ hotelrouter.post('/hotelbooking' , async (req , res)=>{
     // Explicitly convert date strings from req.body to Date objects
     const checkInDate = new Date(check_in_date);
     const checkOutDate = new Date(check_out_date);
-
-    // 🌟 REMOVED: Transaction setup 🌟
 
     try {
         // 1. Decrement room availability using an ATOMIC operation on the INVENTORY MODEL
@@ -61,18 +57,18 @@ hotelrouter.post('/hotelbooking' , async (req , res)=>{
         });
 
         await newBooking.save(); // Save the booking (no session required)
-
-        // 🌟 REMOVED: commitTransaction 🌟
-        console.log(`Booking saved successfully for: ${guest_name} at ${hotel_name}. New rooms available: ${updatedHotel.availableRooms}`);
+      //  REMOVED: commitTransaction 
+        console.log(`Booking saved successfully for: ${guest_name} at ${hotel_name}. 
+            New rooms available: ${updatedHotel.availableRooms}`);
         
         res.status(201).send(`Booking successful! Your room has been reserved:AT ${hotel_name}`);
 
     } catch (error) { 
-        // 🌟 REMOVED: abortTransaction 🌟
+        //  REMOVED: abortTransaction 
         console.error("Booking error:", error);
         res.status(500).send(`Booking failed due to a server error or validation failure: ${error.message}`);
     } 
-    // 🌟 REMOVED: session.endSession() 🌟
+    // REMOVED: session.endSession() 
 }); 
 
 export default hotelrouter;
