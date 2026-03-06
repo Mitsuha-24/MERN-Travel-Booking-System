@@ -30,7 +30,7 @@ Finding reliable stays in Mangalore can be complex. This system simplifies the p
 ├── app.js            # Server entry point
 ├── /config           # Database connection & transaction setup
 ├── /models           # Schemas for Hotel, Booking, and Destination
-├── /scripts          # 
+├── /scripts          # Inventory logic 
 ├── /routes           # Modular routes for booking and tourist info
 └── /views            # EJS templates (Home, Hotel details, Confirmation)
 ```
