@@ -15,9 +15,9 @@ const hotelSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: true, // Ensures no two bookings use the same email (might need adjustment)
         trim: true,
         lowercase: true,
+        unique : false, // Allow multiple bookings with the same email (customers can book multiple times)
         // Basic email validation regex
         match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
     },
