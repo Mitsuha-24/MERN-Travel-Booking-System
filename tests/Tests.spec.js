@@ -13,10 +13,8 @@ test('test hotel booking flow', async ({ page }) => {
   // Start waiting for popup before clicking the link
   const page2Promise  = page.waitForEvent('popup');
   await page.getByRole('link', { name: 'Hotel Booking' }).click();
-  const page2 = await page2Promise;
+  const page2 = await page2Promise;//  for the new page to load
    await page2.goto('http://localhost:3000/hotels'); // Wait for the new page to load
-
-  // 2. Fixed: Removed redundant .click() calls before .fill()
   await page2.getByRole('link', { name: 'Book Now' }).first().click();
   
   await page2.goto('http://localhost:3000/hotelbooking'); // Wait for the booking page to load
@@ -30,9 +28,5 @@ test('test hotel booking flow', async ({ page }) => {
   
   await page2.getByRole('button', { name: 'Submit Booking' }).click();
   
-  //await expect(page2.getByText('Booking Successful!')).toBeVisible(); // Example expectation to verify booking success
-  // 3. Example of how to properly use expectations in Playwright:
-  // await expect(page2).toHaveURL('http://localhost:3000/booking-success'); 
-  // or checking for a success message:
   // await expect(page2.getByText('Booking Successful!')).toBeVisible();
 });
