@@ -121,7 +121,7 @@ This project uses **GitHub Actions** to automatically run end-to-end tests on ev
 | Property       | Value                          |
 |----------------|--------------------------------|
 | Trigger        | Push & PR to `main`            |
-| Runner         | `windows-latest`               |
+| Runner         | `ubantu-latest`                |
 | Node.js        | v20                            |
 | Browser        | Chromium (via Playwright)      |
 | Test report    | Uploaded as artifact (7 days)  |
