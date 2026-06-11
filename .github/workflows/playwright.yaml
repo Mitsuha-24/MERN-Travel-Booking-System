@@ -22,9 +22,7 @@ jobs:
           --health-retries 5
         env:
           MONGO_INITDB_DATABASE: traveldb_test
-        # This is how you pass args to the container in GitHub Actions:
-        # It overrides the default CMD, making mongo start in replica set mode
-        command: ["--replSet", "rs0", "--bind_ip_all"]
+        command: --replSet rs0 --bind_ip_all
 
     steps:
       - name: Checkout code
