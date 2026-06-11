@@ -20,8 +20,8 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-          --entrypoint mongod
-          -- --replSet rs0 --bind_ip_all
+        env:
+          MONGO_INITDB_DATABASE: traveldb_test
 
     steps:
       - name: Checkout code
@@ -29,8 +29,8 @@ jobs:
 
       - name: Init MongoDB replica set
         run: |
-          sudo apt-get install -y mongodb-clients || true
-          mongosh --eval "rs.initiate()" || true
+          docker exec ${{ job.services.mongodb.id }} mongosh --eval \
+            "rs.initiate({_id: 'rs0', members: [{_id: 0, host: 'localhost:27017'}]})"
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -47,7 +47,7 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test
         env:
-          MONGO_URI: mongodb://localhost:27017/traveldb_test
+          MONGO_URI: mongodb://localhost:27017/traveldb_test?replicaSet=rs0&directConnection=true
 
       - name: Upload test report
         uses: actions/upload-artifact@v4
