@@ -33,8 +33,11 @@ jobs:
           echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
           sudo apt-get update -qq
           sudo apt-get install -y mongodb-mongosh
+          sleep 5
           mongosh --host 127.0.0.1:27017 --eval \
-            "rs.initiate({_id: 'rs0', members: [{_id: 0, host: '127.0.0.1:27017'}]})"
+            "rs.initiate({_id: 'rs0', members: [{_id: 0, host: '127.0.0.1:27017'}]})" || true
+          sleep 3
+          mongosh --host 127.0.0.1:27017 --eval "rs.status()"
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
