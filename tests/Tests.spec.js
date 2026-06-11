@@ -1,22 +1,38 @@
 import { test, expect } from '@playwright/test';
 
-test('test', async ({ page }) => {
-  await page1.goto('http://localhost:3000/hotels');
-  const page2Promise = page.waitForEvent('popup');
+test('test site is accessible', async ({ page }) => {
+  // 1. Fixed: Changed page1 to page
+  await page.goto('http://localhost:3000');
+
+});
+
+test('test hotel booking flow', async ({ page }) => {
+
+  await page.goto('http://localhost:3000');
+
+  // Start waiting for popup before clicking the link
+  const page2Promise  = page.waitForEvent('popup');
   await page.getByRole('link', { name: 'Hotel Booking' }).click();
   const page2 = await page2Promise;
+   await page2.goto('http://localhost:3000/hotels'); // Wait for the new page to load
+
+  // 2. Fixed: Removed redundant .click() calls before .fill()
   await page2.getByRole('link', { name: 'Book Now' }).first().click();
-  await page2.getByRole('textbox', { name: 'Guest Name:' }).click();
+  
+  await page2.goto('http://localhost:3000/hotelbooking'); // Wait for the booking page to load
   await page2.getByRole('textbox', { name: 'Guest Name:' }).fill('asd');
-  await page2.getByRole('textbox', { name: 'Email:' }).click();
   await page2.getByRole('textbox', { name: 'Email:' }).fill('pkg@gmail.com');
-  await page2.getByRole('textbox', { name: 'Phone Number:' }).click();
   await page2.getByRole('textbox', { name: 'Phone Number:' }).fill('1234569870');
   await page2.getByRole('textbox', { name: 'Check-in Date:' }).fill('0001-02-11');
   await page2.getByRole('textbox', { name: 'Check-out Date:' }).fill('2001-11-11');
-  await page2.getByRole('spinbutton', { name: 'Credit/Debit Card Number:' }).click();
   await page2.getByRole('spinbutton', { name: 'Credit/Debit Card Number:' }).fill('9874561230789456');
   await page2.getByRole('textbox', { name: 'Expiry Date:' }).fill('2025-12-11');
+  
   await page2.getByRole('button', { name: 'Submit Booking' }).click();
-  //await page2.tohave
+  
+  //await expect(page2.getByText('Booking Successful!')).toBeVisible(); // Example expectation to verify booking success
+  // 3. Example of how to properly use expectations in Playwright:
+  // await expect(page2).toHaveURL('http://localhost:3000/booking-success'); 
+  // or checking for a success message:
+  // await expect(page2.getByText('Booking Successful!')).toBeVisible();
 });

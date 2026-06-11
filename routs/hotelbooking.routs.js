@@ -61,7 +61,7 @@ hotelrouter.post('/hotelbooking' , async (req , res)=>{
         console.log(`Booking saved successfully for: ${guest_name} at ${hotel_name}. 
             New rooms available: ${updatedHotel.availableRooms}`);
         
-        res.status(201).send(`Booking successful! Your room has been reserved:AT ${hotel_name}`);
+        res.status(201).send(`Booking successful!`);
 
     } catch (error) { 
         //  REMOVED: abortTransaction 

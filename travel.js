@@ -43,6 +43,10 @@ travel.get('/gallery' , (req , res)=>{
     res.render('gallery');
 });
 
+travel.get('/homepage' ,(req , res) =>{
+    res.render('homepage');
+});
+
 travel.get('/hotelbooking' , async (req , res)=>{ 
     const hotelName = req.query.hotelName || 'No Hotel Selected'; 
     let availableRooms = 'N/A'; // Default value
